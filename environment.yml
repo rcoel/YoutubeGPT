@@ -1,0 +1,15 @@
+name: myenv
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - beautifulsoup4
+  - chromadb
+  - gradio
+  - huggingface_hub
+  - langchain
+  - requests
+  - youtube-transcript-api
+  - sentence-transformers
+  - python-dotenv
