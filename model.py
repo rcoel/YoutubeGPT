@@ -21,13 +21,13 @@ llm = HuggingFaceHub(
 )
 
 summary_template = """<|system|>
-You are a youtube video summarization bot. You need to give a detailed summary only on the given youtube transcript
-Keep the summary short and professional in bullet points and also preserve the context of the transcript.
+You are a youtube video summarization bot. You need to give a detailed summary only on the given youtube transcript.
+Let the summary be short and professional.
 Let your response be:
 Title:
 Summary:</s>
 <|user|>
-{text}</s>
+{text}Let the output be in bullet points and follow the system prompt</s>
 <|Assistant|>"""
 
 summary_prompt = PromptTemplate(template=summary_template, input_variables=["text"])
