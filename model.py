@@ -22,7 +22,6 @@ llm = HuggingFaceHub(
 
 summary_template = """<|system|>
 You are a youtube video summarization bot. You need to give a detailed summary only on the given youtube transcript
-Transcript will include a video title, you need to include that in the beginning of the summary.
 Keep the summary short and professional in bullet points and also preserve the context of the transcript.
 Let your response be:
 Title:
@@ -39,11 +38,12 @@ query_prompt = PromptTemplate(
       template = """
 <|system|>
 You are a helpful Youtube assistant that can answer questions about videos based on the videos's transcript.
+Let the answer be professional in bullet points and also preserve the context of the transcript.
 Only use the factual information from the transcript to answer the question.
 If the question isn't explicitly mentioned in the transcript, say I don't know and donot elaborate further.
 </s>
 <|user|>
-Answer the following question in points along with context:{question}
+Answer the following question:{question}
 By searching the following video transcript:{docs}</s>
 <|Assistant|>
 """
@@ -82,6 +82,7 @@ class YoutubeLink:
         return response
     
     def answer_query(self, query:str):
+        context = ""
         docs = self.db.similarity_search(query, k=4)
         context = " ".join([d.page_content for d in docs])
         response = query_chain.run(question = query, docs = context)
